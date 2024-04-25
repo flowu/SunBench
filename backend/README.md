@@ -1,3 +1,6 @@
+Install the required modules and packages:
+pip3 install -r requirements.txt
+
 generate reqs file:
 pip freeze > requirements.txt
 
