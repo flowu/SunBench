@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background-color: lightpink;
 }
 
 .App-logo {
@@ -35,4 +36,43 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.h3 {
+  color: #4a90e2;
+  font-size: 20px;
+}
+
+.forecast-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  max-width: 800px; /* Limit the maximum width of the container */
+  margin: auto; /* Center the container horizontally */
+}
+
+.forecast-item {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9; /* Default background color */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  width: 170px; /* Set a specific width for the boxes */
+  text-align: center;
+/*  margin: 10px auto; /* Center the box and add spacing */
+}
+/* Additional styling based on weather conditions can be done dynamically via inline styles or additional CSS classes */
+
+
+.forecast-box {
+  width: 100%; /* Make sure the box uses the full width of its container */
+  padding: 10px;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.forecast-item p {
+  margin: 5px 0;
 }

@@ -9,6 +9,18 @@ interface WeatherData {
     city: string;
 }
 
+// Function to determine the background color based on the weather description
+function getColorForWeather(description: string | undefined) {
+    if (!description) return '#fff'; // Return default color if no description is provided
+    description = description.toLowerCase(); // Convert description to lower case to handle case variations
+    if (description.includes("rain")) return '#a2cff0'; // Light blue for rain
+    if (description.includes("clear")) return '#f7d794'; // Light yellow for clear
+    if (description.includes("cloud")) return '#dfe4ea'; // Grey for cloudy
+    // Add more conditions as needed
+    return '#fff'; // Default white if no conditions match
+}
+
+
 const Weather: React.FC = () => {
     const [weather, setWeather] = useState<WeatherData | null>(null);
     const [isLoading, setIsLoading] = useState(true); // State to track loading
@@ -35,7 +47,10 @@ const Weather: React.FC = () => {
     return (
         <div>
             <h1>Weather in {weather?.city}</h1>
-            <p>Now: {weather?.temperature}, {weather?.description} <WeatherEmoji description={weather?.description} /></p>
+            <div className="forecast-item" style={{ maxWidth: '300px', margin: '0 auto', backgroundColor: getColorForWeather(weather?.description) }}>
+                <p>Now</p>
+                <p>{weather?.temperature} {weather?.description} <WeatherEmoji description={weather?.description} /></p>
+            </div>
         </div>
     );
 };

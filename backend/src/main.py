@@ -2,12 +2,14 @@ from flask import Flask, jsonify
 from flask_caching import Cache
 import logging
 import requests
+from flask_cors import CORS
 
 
 # Basic logging setup that logs to a file
 logging.basicConfig(filename='app.log', filemode='a', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 app = Flask(__name__)
+CORS(app)
 # Configure the cache to use simple in-memory caching
 cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 
