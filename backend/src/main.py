@@ -3,6 +3,7 @@ from flask_caching import Cache
 import logging
 import requests
 from flask_cors import CORS
+import os
 
 
 # Basic logging setup that logs to a file
@@ -43,7 +44,7 @@ def convert_forecast_data(raw_data):
 @app.route('/forecast')
 @cache.cached(timeout=10)  # cache this endpoint for 10 seconds
 def forecast_route():
-    API_KEY = '83dd29f85854d90908fbb18a01112244'  # Replace with your actual OpenWeatherMap API key
+    API_KEY = os.getenv('WEATHER_API_KEY')  # Replace with your actual OpenWeatherMap API key
     CITY = 'Gothenburg'
     LAT = 57.70836111
     LON = 11.96736111
@@ -61,7 +62,7 @@ def forecast_route():
 @app.route('/weather')
 @cache.cached(timeout=10)  # cache this endpoint for 10 seconds
 def weather_route():
-    API_KEY = '83dd29f85854d90908fbb18a01112244'  # Replace with your actual OpenWeatherMap API key
+    API_KEY = os.getenv('WEATHER_API_KEY')  # Replace with your actual OpenWeatherMap API key
     CITY = 'Gothenburg'  # Change this to any city you like
     LAT = 57.70836111
     LON = 11.96736111
