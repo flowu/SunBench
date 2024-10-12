@@ -27,7 +27,7 @@ const Weather: React.FC = () => {
 
     useEffect(() => {
         setIsLoading(true); // Set loading to true when the component mounts
-        axios.get('http://localhost:5000/weather')
+        axios.get('http://localhost:5001/weather')
             .then(response => {
                 setWeather(response.data);
                 setIsLoading(false); // Set loading to false when data is fetched

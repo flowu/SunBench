@@ -41,7 +41,7 @@ const WeatherForecast: React.FC = () => {
     const [groupedForecasts, setGroupedForecasts] = useState<DayForecast[]>([]);
 
     useEffect(() => {
-        axios.get('http://localhost:5000/forecast')
+        axios.get('http://localhost:5001/forecast')
             .then(response => {
                 const groupedData = groupForecastsByDay(response.data);
                 setGroupedForecasts(groupedData);

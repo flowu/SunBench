@@ -17,3 +17,4 @@ rm -rf venv
 
 Run the backend app:
 python3 src/main.py
+go to e.g. http://localhost:3000/weather

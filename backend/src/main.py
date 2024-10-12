@@ -1,4 +1,5 @@
-from flask import Flask, jsonify
+from database import connect_to_db, insert_data
+from flask import Flask, jsonify, request
 from flask_caching import Cache
 import logging
 import requests
@@ -41,6 +42,24 @@ def convert_forecast_data(raw_data):
         simplified_data.append(forecast)
     return simplified_data
 
+@app.route('/save-vacation-date', methods=['POST'])
+def save_vacation_date():
+    try:
+        data = request.json
+        user = data['user']
+        date = data['date']  # Ensure this date is in 'YYYY-MM-DD' format for PostgreSQL
+
+        conn = connect_to_db()
+        print("hej")
+        if conn:
+            insert_data(conn, (user, date))
+            conn.close()
+            return jsonify({'message': 'Vacation date saved successfully'}), 200
+    except Exception as e:
+        app.logger.error(f"Failed to save vacation date: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
 @app.route('/forecast')
 @cache.cached(timeout=10)  # cache this endpoint for 10 seconds
 def forecast_route():
@@ -63,6 +82,7 @@ def forecast_route():
 @cache.cached(timeout=10)  # cache this endpoint for 10 seconds
 def weather_route():
     API_KEY = os.getenv('WEATHER_API_KEY')  # Replace with your actual OpenWeatherMap API key
+    API_KEY = "bfe4042f3a2c7ad7bc8efcb9fc07793a"
     CITY = 'Gothenburg'  # Change this to any city you like
     LAT = 57.70836111
     LON = 11.96736111
@@ -90,4 +110,4 @@ def weather_route():
         return jsonify({'error': 'Failed to fetch weather data', 'message': str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5001, debug=True)
